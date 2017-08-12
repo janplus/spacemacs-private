@@ -229,6 +229,8 @@
 (defun gtd/post-init-org ()
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
+  (setq spaceline-org-clock-p t)
+
   ;; Todo Keys
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")

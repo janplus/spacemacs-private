@@ -49,6 +49,7 @@ values."
              shell-default-height 30
              shell-default-position 'bottom)
      spell-checking
+     basic
      gtd
      ;; syntax-checking
      ;; version-control
@@ -104,7 +105,7 @@ values."
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style 'emacs
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -315,12 +316,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; Fonts
-  (use-package chinese-fonts-setup)
-  (cnfonts-enable)
-
-  ;; Org-mode
-  (setq spaceline-org-clock-p t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
