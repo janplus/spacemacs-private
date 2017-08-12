@@ -5,7 +5,7 @@ This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemac
 ## Components
 
 1. [GTD-Org](layers/gtd/README.org)
-2. [CNFonts](https://github.com/tumashu/cnfonts)
+2. [CNFonts](https://github.com/tumashu/cnfonts): Use `cnfonts-edit-profile` to set
 
 ## How to use
 
