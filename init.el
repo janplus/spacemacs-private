@@ -317,8 +317,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; Org-mode
-  ;; (with-eval-after-load 'org (setq org-agenda-files '("~/Dropbox/org/")))
-  ;; (with-eval-after-load 'org (load-file "~/tmp/org.el"))
+  (setq spaceline-org-clock-p t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

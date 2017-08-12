@@ -9,9 +9,14 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
+;;;; Variables
+;; Org agenda files settings
+(defvar own-org-directory "~/Dropbox/org")
+(defvar own-org-default-note-file "/refile.org")
+(defvar own-org-agenda-diary-file "/diary.org")
+;; Project list
 (defvar bh/project-list nil)
-
-(defvar bh/organization-task-id "e2fb68ed-2c63-4f32-9fa3-9ce17349191e")
+;; The default organization task id
+(defvar bh/organization-task-id "eb155a82-92b2-4f25-a3c6-0304591af2f9")
 
 (defvar bh/hide-scheduled-and-waiting-next-tasks t)

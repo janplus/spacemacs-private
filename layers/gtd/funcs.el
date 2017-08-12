@@ -595,6 +595,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       (org-display-inline-images)
     (error nil)))
 
+;; Phone capture template handling with BBDB lookup
+;; Adapted from code by Gregory J. Grubbs
 (defun bh/phone-call ()
   "Return name and company info for caller from bbdb lookup"
   (interactive)
@@ -623,3 +625,13 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                        (rec)
                        (t "NameOfCaller")))
     (insert caller)))
+
+(defun bh/clock-in-task-by-id (id)
+  "Clock in a task by id"
+  (org-with-point-at (org-id-find id 'marker)
+    (org-clock-in nil)))
+
+(defun bh/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+    (org-clock-in '(16))))

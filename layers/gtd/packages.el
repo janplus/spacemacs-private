@@ -20,29 +20,12 @@
 ;; List of packages to exclude.
 (setq gtd-excluded-packages '())
 
-(when (not (spacemacs/system-is-mswindows))
-  (push 'bbdb gtd-packages))
-
-(defun gtd/init-bbdb()
-  (use-package bbdb
-    :defer t
-    :config
-    (progn
-      (require 'bbdb-com)
-      (define-key global-map (kbd "<f9> b") 'bbdb)
-      (define-key global-map (kbd "<f9> p") 'bh/phone-call)
-      ;; Phone capture template handling with BBDB lookup
-      ;; Adapted from code by Gregory J. Grubbs
-      )))
-
 (defun gtd/init-boxquote()
   (use-package boxquote
     :defer t
     :init
     (progn
-      (define-key global-map (kbd "<f9> r") 'boxquote-region)
-      (define-key global-map (kbd "<f9> f") 'boxquote-insert-file))
-    ))
+      )))
 
 (defun gtd/post-init-org-agenda()
   (require 'org-habit)
@@ -74,10 +57,16 @@
                               (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-HOLD-CANCELLED/!"
-                             ((org-agenda-overriding-header "Projects")
-                              (org-agenda-skip-function 'bh/skip-non-projects)
-                              (org-tags-match-list-sublevels 'indented)
+                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                             ((org-agenda-overriding-header
+                               (concat "Standalone Tasks"
+                                       (if bh/hide-scheduled-and-waiting-next-tasks
+                                           ""
+                                         " (including WAITING and SCHEDULED tasks)")))
+                              (org-agenda-skip-function 'bh/skip-project-tasks)
+                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
                   (tags-todo "-CANCELLED/!NEXT"
@@ -93,6 +82,12 @@
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(todo-state-down effort-up category-keep))))
+                  (tags-todo "-HOLD-CANCELLED/!"
+                             ((org-agenda-overriding-header "Projects")
+                              (org-agenda-skip-function 'bh/skip-non-projects)
+                              (org-tags-match-list-sublevels 'indented)
+                              (org-agenda-sorting-strategy
+                               '(category-keep))))
                   (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
                              ((org-agenda-overriding-header
                                (concat "Project Subtasks"
@@ -100,18 +95,6 @@
                                            ""
                                          " (including WAITING and SCHEDULED tasks)")))
                               (org-agenda-skip-function 'bh/skip-non-project-tasks)
-                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-sorting-strategy
-                               '(category-keep))))
-                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
-                             ((org-agenda-overriding-header
-                               (concat "Standalone Tasks"
-                                       (if bh/hide-scheduled-and-waiting-next-tasks
-                                           ""
-                                         " (including WAITING and SCHEDULED tasks)")))
-                              (org-agenda-skip-function 'bh/skip-project-tasks)
                               (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
@@ -226,7 +209,7 @@
   (setq org-agenda-skip-scheduled-if-deadline-is-shown  (quote repeated-after-deadline))
 
   (setq org-agenda-include-diary nil)
-  (setq org-agenda-diary-file "~/Dropbox/org/diary.org")
+
   (setq org-agenda-insert-diary-extract-time t)
 
   ;; Include agenda archive files when searching for things
@@ -237,21 +220,12 @@
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
-      (setq org-directory "~/Dropbox/org")
-      (setq org-agenda-files '("~/Dropbox/org/"))
-      (setq org-default-notes-file (concat org-directory "/refile.org"))
-
       (require 'org-id)
-      (defun bh/clock-in-task-by-id (id)
-        "Clock in a task by id"
-        (org-with-point-at (org-id-find id 'marker)
-          (org-clock-in nil)))
-
-      (defun bh/clock-in-organization-task-as-default ()
-        (interactive)
-        (org-with-point-at (org-id-find bh/organization-task-id 'marker)
-          (org-clock-in '(16)))))
-    ))
+      (setq org-directory own-org-directory)
+      (setq org-agenda-files (list org-directory))
+      (setq org-default-notes-file (concat org-directory own-org-default-note-file))
+      (setq org-agenda-diary-file (concat org-directory own-org-agenda-diary-file))
+      )))
 
 (defun gtd/post-init-org ()
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -332,18 +306,7 @@
   ;; Allow refile to create parent tasks with confirmation
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-  ;;   ;; ;; Use IDO for both buffer and file completion and ido-everywhere to t
-  ;;   ;; (setq org-completion-use-ido t)
-  ;;   ;; (setq ido-everywhere t)
-  ;;   ;; (setq ido-max-directory-size 100000)
-  ;;   ;; (ido-mode (quote both))
-  ;;   ;; ;; Use the current window when visiting files and buffers with ido
-  ;;   ;; (setq ido-default-file-method 'selected-window)
-  ;;   ;; (setq ido-default-buffer-method 'selected-window)
-  ;;   ;; ;; Use the current window for indirect buffer display
-  ;;   ;; (setq org-indirect-buffer-display 'current-window)
-
-;;;; Refile settings
+  ;;;; Refile settings
 
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
@@ -358,6 +321,7 @@
   (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
   ;; Save clock data and state changes and notes in the LOGBOOK drawer
   (setq org-clock-into-drawer t)
+  (setq org-log-into-drawer t)
   ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
   (setq org-clock-out-remove-zero-time-clocks t)
   ;; Clock out when moving task to a done state
@@ -387,8 +351,6 @@
 
   ;; Set default column view headings: Task Effort Clock_Summary
   (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
-  ;;(setq org-columns-default-format
-  ;;      "%50ITEM(Task) %10TODO %3PRIORITY %TAGS %10Effort(Effort){:} %10CLOCKSUM")
 
   ;; global Effort estimate values
   ;; global STYLE property values for completion
