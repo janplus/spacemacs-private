@@ -635,3 +635,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (interactive)
   (org-with-point-at (org-id-find bh/organization-task-id 'marker)
     (org-clock-in '(16))))
+
+(defun bh/insert-inactive-timestamp ()
+  (interactive)
+  (org-insert-time-stamp nil t t nil nil nil))

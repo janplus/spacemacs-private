@@ -19,7 +19,7 @@
 (global-set-key "\C-cI" 'bh/punch-in)
 (global-set-key "\C-cO" 'bh/punch-out)
 (global-set-key "\C-cS" 'org-save-all-org-buffers)
-(global-set-key (kbd "C-c SPC") 'bh/clock-in-last-task)
+(global-set-key "\C-c'" 'bh/clock-in-last-task)
 (global-set-key "\C-cr" 'boxquote-region)
 (global-set-key "\C-cf" 'boxquote-insert-file)
 
@@ -27,6 +27,7 @@
   "aob" 'org-iswitchb
   "aoI" 'bh/punch-in
   "aoO" 'bh/punch-out
+  "ao'" 'bh/clock-in-last-task
   "aor" 'boxquote-region
   "aof" 'boxquote-insert-file)
 
@@ -34,6 +35,22 @@
   "b" 'org-iswitchb
   "I" 'bh/punch-in
   "O" 'bh/punch-out
-  "SPC" 'bh/clock-in-last-task
+  "'" 'bh/clock-in-last-task
   "r" 'boxquote-region
   "f" 'boxquote-insert-file)
+
+;; Use "SPC o"
+(spacemacs/declare-prefix "o" "org")
+(spacemacs/set-leader-keys
+  "o'" 'bh/clock-in-last-task
+  "oa" 'org-agenda
+  "ob" 'org-iswitchb
+  "oc" 'org-capture
+  "of" 'boxquote-insert-file
+  "oI" 'bh/punch-in
+  "oi" 'bh/insert-inactive-timestamp
+  "ol" 'org-store-link
+  "oO" 'bh/punch-out
+  "oo" 'org-clock-goto
+  "or" 'boxquote-region
+  "oS" 'org-save-all-org-buffers)
