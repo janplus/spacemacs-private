@@ -1,9 +1,8 @@
-#+TITLE: gtd layer
+#+TITLE: GTD Org layer
 #+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 #+CAPTION: logo
 
-* Description
 This spacemacs layer is based on the web document "[[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]" by Bernt Hansen. AFAIK, his document is the most comprehensive tutorial you could find on the Internet. It is very helpful for those who want to learn org-mode for GTD.
 
 The [[file:org-mode.org][original document]] is also included, though some settings here may be different from the documented version. I modified it a bit to make it fit in with the Spacemacs layer frame.
