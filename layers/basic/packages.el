@@ -12,9 +12,18 @@
 ;;; Code:
 
 (defconst basic-packages
-  '(chinese-fonts-setup))
+  '(
+    flyspell-correct
+    chinese-fonts-setup
+    ))
 
-(defun basic/init-cnfonts()
-  (cnfonts-enable))
+(defun basic/pre-init-flyspell-correct()
+  (setq-default ispell-program-name "aspell")
+  (ispell-change-dictionary "american" t))
+
+(defun basic/init-chinese-fonts-setup()
+  (use-package chinese-fonts-setup
+    :defer t
+    :init (cnfonts-enable)))
 
 ;;; packages.el ends here

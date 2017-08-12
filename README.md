@@ -1,6 +1,6 @@
 # My personal Spacemacs Configurations
 
-This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemacs](https://github.com/syl20bnr/spacemacs).
+This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemacs](https://github.com/janplus/spacemacs/tree/v0.200.20170812).
 
 ## Components
 
