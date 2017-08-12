@@ -10,6 +10,6 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
-				      basic
-				      gtd
-				      ))
+                                      basic
+                                      gtd
+                                      ))
