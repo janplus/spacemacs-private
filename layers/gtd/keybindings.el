@@ -13,8 +13,6 @@
 ;; Prefixes
 ;; ---------------------------------------------------------------------------
 
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-ci" 'bh/insert-inactive-timestamp)
 (global-set-key "\C-co" 'org-clock-goto)
@@ -24,3 +22,18 @@
 (global-set-key (kbd "C-c SPC") 'bh/clock-in-last-task)
 (global-set-key "\C-cr" 'boxquote-region)
 (global-set-key "\C-cf" 'boxquote-insert-file)
+
+(spacemacs/set-leader-keys
+  "aob" 'org-iswitchb
+  "aoI" 'bh/punch-in
+  "aoO" 'bh/punch-out
+  "aor" 'boxquote-region
+  "aof" 'boxquote-insert-file)
+
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "b" 'org-iswitchb
+  "I" 'bh/punch-in
+  "O" 'bh/punch-out
+  "SPC" 'bh/clock-in-last-task
+  "r" 'boxquote-region
+  "f" 'boxquote-insert-file)
