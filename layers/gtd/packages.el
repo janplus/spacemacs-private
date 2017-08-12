@@ -29,6 +29,12 @@
 (defun gtd/post-init-org-agenda()
   (require 'org-habit)
 
+  ;; Agenda view use the same font height
+  (custom-set-faces
+   '(org-agenda-done ((t (:foreground "#86dc2f" :height 1.0)))))
+  (custom-set-faces
+   '(org-scheduled-today ((t (:foreground "#bc6ec5" :height 1.0)))))
+
   (setq org-agenda-span 'day)
 
   ;; Do not dim blocked tasks
@@ -56,21 +62,9 @@
                               (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
-                             ((org-agenda-overriding-header
-                               (concat "Standalone Tasks"
-                                       (if bh/hide-scheduled-and-waiting-next-tasks
-                                           ""
-                                         " (including WAITING and SCHEDULED tasks)")))
-                              (org-agenda-skip-function 'bh/skip-project-tasks)
-                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                              (org-agenda-sorting-strategy
-                               '(category-keep))))
                   (tags-todo "-CANCELLED/!NEXT"
                              ((org-agenda-overriding-header
-                               (concat "Project Next Tasks"
+                               (concat "Next Tasks"
                                        (if bh/hide-scheduled-and-waiting-next-tasks
                                            ""
                                          " (including WAITING and SCHEDULED tasks)")))
@@ -81,6 +75,18 @@
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(todo-state-down effort-up category-keep))))
+                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                             ((org-agenda-overriding-header
+                               (concat "Tasks"
+                                       (if bh/hide-scheduled-and-waiting-next-tasks
+                                           ""
+                                         " (including WAITING and SCHEDULED tasks)")))
+                              (org-agenda-skip-function 'bh/skip-project-tasks)
+                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-sorting-strategy
+                               '(category-keep))))
                   (tags-todo "-HOLD-CANCELLED/!"
                              ((org-agenda-overriding-header "Projects")
                               (org-agenda-skip-function 'bh/skip-non-projects)
@@ -113,7 +119,22 @@
                         ((org-agenda-overriding-header "Tasks to Archive")
                          (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                          (org-tags-match-list-sublevels nil))))
-                 nil))))
+                 nil)
+                ("P" "Phone Tasks" tags "PHONE"
+                 ((org-agenda-overriding-header "Phone tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("R" "Read Tasks" tags "READ"
+                 ((org-agenda-overriding-header "Read tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("E" "Errand Tasks" tags "@errand"
+                 ((org-agenda-overriding-header "Errand tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("S" "Someday/Maybe Tasks" tags-todo "SOMEDAY|TODO=\"SOMEDAY\""
+                 ((org-agenda-overriding-header "Someday/Maybe tasks")))
+                )))
 
   (setq org-agenda-auto-exclude-function 'bh/org-auto-exclude-function)
 
@@ -213,6 +234,31 @@
 
   ;; Include agenda archive files when searching for things
   (setq org-agenda-text-search-extra-files (quote (agenda-archives)))
+
+  ;; Agenda view
+  ;; Show all future entries for repeating tasks
+  (setq org-agenda-repeating-timestamp-show-all t)
+
+  ;; Show all agenda dates - even if they are empty
+  (setq org-agenda-show-all-dates t)
+
+  ;; Sorting order for tasks on the agenda
+  (setq org-agenda-sorting-strategy
+        (quote ((agenda time-up user-defined-up priority-down effort-up category-keep)
+                (todo category-up priority-down effort-up)
+                (tags category-up priority-down effort-up)
+                (search category-up))))
+
+  ;; Start the weekly agenda on Monday
+  (setq org-agenda-start-on-weekday 1)
+
+  ;; Enable display of the time grid so we can see the marker for the current time
+  (setq org-agenda-time-grid (quote ((daily today remove-match)
+                                     #("----------------" 0 16 (org-heading t))
+                                     (0900 1100 1300 1500 1700))))
+
+  ;; Display tags farther right
+  (setq org-agenda-tags-column -102)
   )
 
 (defun gtd/pre-init-org ()
@@ -220,6 +266,7 @@
     :post-config
     (progn
       (require 'org-id)
+      (require 'org-checklist)
       (setq org-directory own-org-directory)
       (setq org-agenda-files (list org-directory))
       (setq org-default-notes-file (concat org-directory own-org-default-note-file))
@@ -229,7 +276,11 @@
 (defun gtd/post-init-org ()
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 
+  ;; Spacemacs powerline org clock
   (setq spaceline-org-clock-p t)
+
+  ;; Speed commands
+  (setq org-use-speed-commands t)
 
   ;; Todo Keys
   (setq org-todo-keywords
