@@ -1,9 +1,9 @@
 ;;; layers.el --- Spacemacs Layer layers File
 ;;
-;; Copyright (c) 2012-2016 Sylvain Benner & Contributors
+;; Copyright (c) 2017 Wu Jian
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Wu Jian <jan.chou.wu@gmail.com>
+;; URL: https://github.com/janplus/spacemacs-private
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
