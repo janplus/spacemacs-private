@@ -9,8 +9,13 @@
 ;;
 ;;; License: GPLv3
 
+(global-set-key "\C-s" 'isearch-forward-regexp)
+(global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key "\M-%" 'query-replace-regexp)
+
 ;; Ctrl-x
 (global-set-key "\C-xb" 'helm-mini)
+(global-set-key (kbd "C-x C-b") 'spacemacs-layouts/non-restricted-buffer-list-helm)
 
 ;; Ctrl-c
 (global-set-key "\C-cg" 'magit-status)
