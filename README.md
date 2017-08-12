@@ -1,21 +1,13 @@
-# Private directory
+# My personal Spacemacs Configurations
 
-The content of this directory is ignored by Git. This is the default place
-where to store your private configuration layers.
+This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemacs](https://github.com/syl20bnr/spacemacs).
 
-To create a new configuration layer:
+## Components
 
-    SPC SPC configuration-layer/create-layer RET
+1. [GTD-Org](layers/gtd/README.org)
 
-Then enter the name of your configuration in the prompt.
+## How to use
 
-A directory named after the created configuration layer will be created here
-along with template files within it (packages.el and extensions.el, more info
-on the meaning of those files can be found in the [documentation][conf_layers]).
-
-Each created file has further guidance written in them.
-
-Once the configuration is done, restart Emacs to load, install and configure
-your layer.
-
-[conf_layers]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#extensions-and-packages
+1. Follow the above links to install Emacs and Spacemacs.
+2. `git clone git@github.com:janplus/spacemacs-private.git ~/.spacemacs.d`
+3. `mv ~/.spacemacs ~/.spacemacs.bak`
