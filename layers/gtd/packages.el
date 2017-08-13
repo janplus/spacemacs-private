@@ -52,6 +52,20 @@
                  ((org-agenda-overriding-header "Habits")
                   (org-agenda-sorting-strategy
                    '(todo-state-down effort-up category-keep))))
+                ("P" "Phone Tasks" tags "PHONE"
+                 ((org-agenda-overriding-header "Phone tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("R" "Read Tasks" tags "READ"
+                 ((org-agenda-overriding-header "Read tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("E" "Errand Tasks" tags "@errand"
+                 ((org-agenda-overriding-header "Errand tasks")
+                  (org-agenda-skip-function '(org-agenda-skip-entry-if
+                                              'nottodo '("TODO" "NEXT")))))
+                ("S" "Someday/Maybe Tasks" tags-todo "SOMEDAY|TODO=\"SOMEDAY\""
+                 ((org-agenda-overriding-header "Someday/Maybe tasks")))
                 (" " "Agenda"
                  ((agenda "" nil)
                   (tags "REFILE"
@@ -120,20 +134,6 @@
                          (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                          (org-tags-match-list-sublevels nil))))
                  nil)
-                ("P" "Phone Tasks" tags "PHONE"
-                 ((org-agenda-overriding-header "Phone tasks")
-                  (org-agenda-skip-function '(org-agenda-skip-entry-if
-                                              'nottodo '("TODO" "NEXT")))))
-                ("R" "Read Tasks" tags "READ"
-                 ((org-agenda-overriding-header "Read tasks")
-                  (org-agenda-skip-function '(org-agenda-skip-entry-if
-                                              'nottodo '("TODO" "NEXT")))))
-                ("E" "Errand Tasks" tags "@errand"
-                 ((org-agenda-overriding-header "Errand tasks")
-                  (org-agenda-skip-function '(org-agenda-skip-entry-if
-                                              'nottodo '("TODO" "NEXT")))))
-                ("S" "Someday/Maybe Tasks" tags-todo "SOMEDAY|TODO=\"SOMEDAY\""
-                 ((org-agenda-overriding-header "Someday/Maybe tasks")))
                 )))
 
   (setq org-agenda-auto-exclude-function 'bh/org-auto-exclude-function)
