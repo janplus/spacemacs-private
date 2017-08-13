@@ -10,6 +10,7 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
+                                      html
                                       clojure
                                       auto-completion
                                       git
