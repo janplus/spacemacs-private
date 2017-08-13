@@ -29,6 +29,9 @@
 (defun gtd/post-init-org-agenda()
   (require 'org-habit)
 
+  (when (spacemacs/system-is-mac)
+    (require 'org-mac-link))
+
   ;; Agenda view use the same font height
   (custom-set-faces
    '(org-agenda-done ((t (:foreground "#86dc2f" :height 1.0)))))
