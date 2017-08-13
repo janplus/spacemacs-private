@@ -14,6 +14,7 @@
 (defconst basic-packages
   '(
     auto-complete
+    dired
     flyspell-correct
     chinese-fonts-setup
     ))
@@ -21,6 +22,12 @@
 (defun basic/pre-init-flyspell-correct()
   (setq-default ispell-program-name "aspell")
   (ispell-change-dictionary "american" t))
+
+(defun basic/pre-init-dired ()
+  "Set the dired mode"
+  (interactive)
+  (when (spacemacs/system-is-mac)
+    (setq insert-directory-program "gls" dired-use-ls-dired t)))
 
 (defun basic/init-chinese-fonts-setup()
   (use-package chinese-fonts-setup

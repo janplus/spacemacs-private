@@ -44,7 +44,8 @@
   "I" 'bh/punch-in
   "O" 'bh/punch-out
 
-  "'" 'bh/clock-in-last-task)
+  ;; "'" 'bh/clock-in-last-task
+  )
 
 ;; Use "SPC o"
 (spacemacs/declare-prefix "o" "org")

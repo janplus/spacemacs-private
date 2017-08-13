@@ -29,3 +29,6 @@
 
 ;; Meta
 (global-set-key (kbd "M-;") 'spacemacs/comment-or-uncomment-lines)
+
+;; Evil keys
+(define-key evil-normal-state-map "gb" 'pop-tag-mark)
