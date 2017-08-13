@@ -1,0 +1,35 @@
+#+TITLE: My personal Spacemacs Configurations
+
+This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemacs](https://github.com/janplus/spacemacs/tree/v0.200.20170812).
+
+#+BEGIN_SRC ditaa :file components.png
+
+                     +------------+
+                     |            |
+                     |   GTD      |
+                     |            |
+                     +------------+
+                        
+                        
+                        
+                     +-------------+
+                     |             |
+                     |   CNFonts   |
+                     |             |
+                     |             |
+                     +-------------+
+#+END_SRC
+
+#+results:
+[[file:components.png]]
+
+* Components
+
+1. [[layers/gtd/README.org][GTD-Org]]
+2. [CNFonts](https://github.com/tumashu/cnfonts): Use `cnfonts-edit-profile` to set
+
+* How to use
+
+1. Follow the above links to install Emacs and Spacemacs.
+2. ~git clone git@github.com:janplus/spacemacs-private.git ~/.spacemacs.d~
+3. ~mv ~/.spacemacs ~/.spacemacs.bak~
