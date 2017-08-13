@@ -448,8 +448,8 @@
   ;; (require 'ox-latex)
   ;; (require 'ox-ascii)
 
-  (setq org-ditaa-jar-path "~/Dropbox/org-mode/contrib/scripts/ditaa.jar")
-  (setq org-plantuml-jar-path "~/java/plantuml.jar")
+  (setq org-ditaa-jar-path own-ditaa-jar-path)
+  (setq org-plantuml-jar-path own-plantuml-jar-path)
 
   (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
 
@@ -479,6 +479,9 @@
 
   ;; Use fundamental mode when editing plantuml blocks with C-c '
   (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
+
+  ;; Use artist mode when editing ditaa blocks with C-c '
+  (add-to-list 'org-src-lang-modes (quote ("ditaa" . artist)))
 
   ;; Don't enable this because it breaks access to emacs from my
   ;; Android phone

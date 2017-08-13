@@ -14,6 +14,11 @@
 (defvar own-org-directory "~/Dropbox/org")
 (defvar own-org-default-note-file "/refile.org")
 (defvar own-org-agenda-diary-file "/diary.org")
+
+;; Jars
+(defvar own-ditaa-jar-path "~/Dropbox/org/contrib/scripts/ditaa.jar")
+(defvar own-plantuml-jar-path "~/Dropbox/org/contrib/scripts/plantuml.jar")
+
 ;; Project list
 (defvar bh/project-list nil)
 ;; The default organization task id
