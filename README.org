@@ -2,7 +2,7 @@
 
 This is bases on [Emacs 25.2](https://www.gnu.org/software/emacs/) and [Spacemacs](https://github.com/janplus/spacemacs/tree/v0.200.20170812).
 
-#+BEGIN_SRC ditaa :file components.png
+#+BEGIN_SRC ditaa :file components.png :exports results
 
                      +------------+
                      |            |
