@@ -67,7 +67,6 @@
 ;; Org agenda mode map
 (defun gtd-org-agenda-mode-keys()
   (interactive)
-  (org-defkey org-agenda-mode-map "q" 'bury-buffer)
   (org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
 
   (org-defkey org-agenda-mode-map "F" 'bh/restrict-to-file-or-follow)

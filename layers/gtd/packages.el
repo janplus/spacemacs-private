@@ -38,6 +38,9 @@
   (custom-set-faces
    '(org-scheduled-today ((t (:foreground "#bc6ec5" :height 1.0)))))
 
+  ;; Bury the agenda buffer instead of kill
+  (setq org-agenda-sticky t)
+
   (setq org-agenda-span 'day)
 
   ;; Do not dim blocked tasks
