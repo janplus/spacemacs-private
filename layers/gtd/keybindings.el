@@ -14,58 +14,67 @@
 ;; ---------------------------------------------------------------------------
 
 (global-set-key "\C-cb" 'org-iswitchb)
+(global-set-key "\C-cf" 'boxquote-insert-file)
 (global-set-key "\C-ci" 'bh/insert-inactive-timestamp)
 (global-set-key "\C-co" 'org-clock-goto)
+(global-set-key "\C-cr" 'boxquote-region)
+
 (global-set-key "\C-cI" 'bh/punch-in)
 (global-set-key "\C-cO" 'bh/punch-out)
 (global-set-key "\C-cS" 'org-save-all-org-buffers)
-(global-set-key "\C-c'" 'bh/clock-in-last-task)
-(global-set-key "\C-cr" 'boxquote-region)
-(global-set-key "\C-cf" 'boxquote-insert-file)
 
+(global-set-key "\C-c'" 'bh/clock-in-last-task)
+
+;; Spacemacs leader keys
 (spacemacs/set-leader-keys
   "aob" 'org-iswitchb
+  "aof" 'boxquote-insert-file
+  "aor" 'boxquote-region
+
   "aoI" 'bh/punch-in
   "aoO" 'bh/punch-out
-  "ao'" 'bh/clock-in-last-task
-  "aor" 'boxquote-region
-  "aof" 'boxquote-insert-file)
+
+  "ao'" 'bh/clock-in-last-task)
 
 (spacemacs/set-leader-keys-for-major-mode 'org-mode
   "b" 'org-iswitchb
+  "f" 'boxquote-insert-file
+  "r" 'boxquote-region
+
   "I" 'bh/punch-in
   "O" 'bh/punch-out
-  "'" 'bh/clock-in-last-task
-  "r" 'boxquote-region
-  "f" 'boxquote-insert-file)
+
+  "'" 'bh/clock-in-last-task)
 
 ;; Use "SPC o"
 (spacemacs/declare-prefix "o" "org")
 (spacemacs/set-leader-keys
-  "o'" 'bh/clock-in-last-task
   "oa" 'org-agenda
   "ob" 'org-iswitchb
   "oc" 'org-capture
   "of" 'boxquote-insert-file
-  "oI" 'bh/punch-in
   "oi" 'bh/insert-inactive-timestamp
   "ol" 'org-store-link
-  "oO" 'bh/punch-out
   "oo" 'org-clock-goto
   "or" 'boxquote-region
-  "oS" 'org-save-all-org-buffers)
+
+  "oI" 'bh/punch-in
+  "oO" 'bh/punch-out
+  "oS" 'org-save-all-org-buffers
+
+  "o'" 'bh/clock-in-last-task)
 
 ;; Org agenda mode map
 (defun gtd-org-agenda-mode-keys()
   (interactive)
+  (org-defkey org-agenda-mode-map "q" 'bury-buffer)
+  (org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
+
   (org-defkey org-agenda-mode-map "F" 'bh/restrict-to-file-or-follow)
   (org-defkey org-agenda-mode-map "N" 'bh/narrow-to-subtree)
   (org-defkey org-agenda-mode-map "P" 'bh/narrow-to-project)
-  (org-defkey org-agenda-mode-map "q" 'bury-buffer)
-  (org-defkey org-agenda-mode-map "T" 'bh/org-todo)
   (org-defkey org-agenda-mode-map "U" 'bh/narrow-up-one-level)
   (org-defkey org-agenda-mode-map "V" 'bh/view-next-project)
-  (org-defkey org-agenda-mode-map "w" 'org-agenda-refile)
   (org-defkey org-agenda-mode-map "W" (lambda () (interactive) (setq bh/hide-scheduled-and-waiting-next-tasks t) (bh/widen)))
   (org-defkey org-agenda-mode-map "\C-c\C-x<" 'bh/set-agenda-restriction-lock))
 
