@@ -12,8 +12,9 @@
 ;;;; Variables
 ;; Org agenda files settings
 (defvar own-org-directory "~/Dropbox/org")
-(defvar own-org-default-note-file "/refile.org")
-(defvar own-org-agenda-diary-file "/diary.org")
+(defvar own-org-default-note-file (concat own-org-directory "/refile.org"))
+(defvar own-org-agenda-diary-file (concat own-org-directory "/diary.org"))
+(defvar own-org-agenda-someday-file (concat own-org-directory "/someday.org"))
 
 ;; Jars
 (defvar own-ditaa-jar-path "~/Dropbox/org/contrib/scripts/ditaa.jar")

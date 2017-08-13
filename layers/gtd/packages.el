@@ -168,34 +168,6 @@
   ;; If we leave Emacs running overnight - reset the appointments one minute after midnight
   (run-at-time "24:01" nil 'bh/org-agenda-to-appt)
 
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "W" (lambda () (interactive) (setq bh/hide-scheduled-and-waiting-next-tasks t) (bh/widen))))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "F" 'bh/restrict-to-file-or-follow))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "N" 'bh/narrow-to-subtree))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "U" 'bh/narrow-up-one-level))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "P" 'bh/narrow-to-project))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "V" 'bh/view-next-project))
-            'append)
-
-  (add-hook 'org-agenda-mode-hook
-            '(lambda () (org-defkey org-agenda-mode-map "\C-c\C-x<" 'bh/set-agenda-restriction-lock))
-            'append)
-
   ;; Limit restriction lock highlighting to the headline only
   (setq org-agenda-restriction-lock-highlight-subtree nil)
 
@@ -269,8 +241,8 @@
       (require 'org-checklist)
       (setq org-directory own-org-directory)
       (setq org-agenda-files (list org-directory))
-      (setq org-default-notes-file (concat org-directory own-org-default-note-file))
-      (setq org-agenda-diary-file (concat org-directory own-org-agenda-diary-file))
+      (setq org-default-notes-file own-org-default-note-file)
+      (setq org-agenda-diary-file own-org-agenda-diary-file)
       )))
 
 (defun gtd/post-init-org ()
@@ -285,7 +257,7 @@
   ;; Todo Keys
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-          (sequence "WAITING(w@/!)" "HOLD(h@/!)" "SOMEDAY(s)" "|" "CANCELLED(c@/!)" "PHONE")))
+          (sequence "WAITING(w@/!)" "HOLD(h@/!)" "SOMEDAY(s)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "red" :weight bold)
                 ("NEXT" :foreground "blue" :weight bold)
@@ -294,6 +266,7 @@
                 ("HOLD" :foreground "magenta" :weight bold)
                 ("CANCELLED" :foreground "forest green" :weight bold)
                 ("PHONE" :foreground "forest green" :weight bold)
+                ("MEETING" :foreground "forest green" :weight bold)
                 ("SOMEDAY" :foreground "forest green" :weight bold))))
 
   ;; Fast todo selections
@@ -322,13 +295,15 @@
                  "* NEXT Respond on %(org-mac-message-get-links)\nSCHEDULED: %t\n%U\n" :clock-in t :clock-resume t :immediate-finish t)
                 ("n" "note" entry (file org-default-notes-file)
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree (concat org-directory "/diary.org"))
+                ("j" "Journal" entry (file+datetree org-agenda-diary-file)
                  "* %?\n%U\n" :clock-in t :clock-resume t)
+                ("m" "Meeting" entry (file org-default-notes-file)
+                 "* MEETING with %? :MEETING:\n%U\n%[~/Dropbox/templates/meeting.txt]" :clock-in t :clock-resume t)
                 ("R" "Read" entry (file org-default-notes-file)
                  "* TODO %? :READ:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("b" "Book" entry (file+datetree (concat org-directory "/diary.org"))
+                ("b" "Book" entry (file+datetree org-agenda-diary-file)
                  "* %^{Book Title} :BOOKS: \n%[~/Dropbox/templates/booktemp.txt]%U\n" :clock-in t :clock-resume t)
-                ("d" "Daily Review" entry (file+datetree (concat org-directory "/diary.org"))
+                ("d" "Daily Review" entry (file+datetree org-agenda-diary-file)
                  "* %u Review :COACH: \n%U\n%[~/Dropbox/templates/daily_review.txt]" :clock-in t :clock-resume t)
                 ("w" "org-protocol" entry (file org-default-notes-file)
                  "* TODO Review %c\n%U\n" :immediate-finish t)
@@ -336,11 +311,11 @@
                  "* TODO %? :PHONE:\n%U" :clock-in t :clock-resume t)
                 ("h" "Habit" entry (file org-default-notes-file)
                  "* NEXT %?\nSCHEDULED: %(format-time-string \"<%Y-%m-%d .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n%U\n%a\n")
-                ("2" "Review my responsibility" entry (file+datetree (concat org-directory "/diary.org"))
+                ("2" "Review my responsibility" entry (file+datetree org-agenda-diary-file)
                  "* Responsibility review %t :REVIEW:\n%U\n- Job\n%?\n- Personal\n" :clock-in t :clock-resume t)
-                ("3" "Review my targets" entry (file+datetree (concat org-directory "/diary.org"))
+                ("3" "Review my targets" entry (file+datetree org-agenda-diary-file)
                  "* Targets review %t :REVIEW:\n%U\n%[~/Dropbox/templates/targets_review.org]" :clock-in t :clock-resume t)
-                ("s" "Someday/Maybe" entry (file (concat org-directory "/someday.org"))
+                ("s" "Someday/Maybe" entry (file own-org-agenda-someday-file)
                  "* SOMEDAY %? \n%U" :clock-in t :clock-resume t))))
 
   (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
@@ -418,6 +393,7 @@
                               ("AMAZON" . ?a)
                               ("HENGSHI" . ?i)
                               ("PHONE" . ?p)
+                              ("MEETING" . ?m)
                               ("READ" . ?R)
                               ("WAITING" . ?w)
                               ("PASSWORD". ?S)
