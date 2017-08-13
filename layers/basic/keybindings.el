@@ -13,9 +13,13 @@
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-%" 'query-replace-regexp)
 
-;; Ctrl-x
+;; Helm
+(global-set-key (kbd "C-h r") 'helm-info-emacs)
+(global-set-key (kbd "C-h C-l") 'helm-locate-library)
+
 (global-set-key "\C-xb" 'helm-mini)
 (global-set-key (kbd "C-x C-b") 'spacemacs-layouts/non-restricted-buffer-list-helm)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 ;; Ctrl-c
 (global-set-key "\C-cg" 'magit-status)
