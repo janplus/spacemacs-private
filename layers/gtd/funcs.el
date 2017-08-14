@@ -645,7 +645,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (if org-agenda-sticky
       (switch-to-buffer "*Org Agenda( )*")
     (switch-to-buffer "*Org Agenda*"))
-  ;; (delete-other-windows)
+  (delete-other-windows)
   )
 
 (defun bh/prepare-meeting-notes ()
