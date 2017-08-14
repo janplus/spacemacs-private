@@ -10,7 +10,9 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
-                                      basic
-                                      programming
-                                      gtd
+                                      html
+                                      javascript
+                                      clojure
+                                      auto-completion
+                                      git
                                       ))

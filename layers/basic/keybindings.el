@@ -24,9 +24,6 @@
 ;; Ctrl-x
 (global-set-key (kbd "C-x C-;") 'spacemacs/comment-or-uncomment-lines)
 
-;; Ctrl-c
-(global-set-key "\C-cg" 'magit-status)
-
 ;; Meta
 (global-set-key (kbd "M-;") 'spacemacs/comment-or-uncomment-lines)
 

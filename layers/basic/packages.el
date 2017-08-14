@@ -13,7 +13,6 @@
 
 (defconst basic-packages
   '(
-    auto-complete
     dired
     flyspell-correct
     chinese-fonts-setup
@@ -33,8 +32,5 @@
   (use-package chinese-fonts-setup
     :defer t
     :init (cnfonts-enable)))
-
-(defun basic/pre-init-auto-complete()
-  (setq-default auto-completion-enable-snippets-in-popup t))
 
 ;;; packages.el ends here

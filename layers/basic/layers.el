@@ -10,11 +10,6 @@
 ;;; License: GPLv3
 
 (configuration-layer/declare-layers '(
-                                      html
-                                      javascript
-                                      clojure
-                                      auto-completion
-                                      git
                                       markdown
                                       org
                                       (shell :variables
