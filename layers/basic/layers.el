@@ -11,6 +11,7 @@
 
 (configuration-layer/declare-layers '(
                                       html
+                                      javascript
                                       clojure
                                       auto-completion
                                       git

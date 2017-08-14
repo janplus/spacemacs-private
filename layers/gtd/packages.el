@@ -14,6 +14,7 @@
       org
       org-agenda
       boxquote
+      spaceline
       ))
 
 ;; List of packages to exclude.
@@ -239,6 +240,10 @@
   (setq org-agenda-tags-column -102)
   )
 
+(defun gtd/post-init-spaceline ()
+  ;; Spacemacs powerline org clock
+  (setq spaceline-org-clock-p t))
+
 (defun gtd/pre-init-org ()
   (spacemacs|use-package-add-hook org
     :post-config
@@ -253,9 +258,6 @@
 
 (defun gtd/post-init-org ()
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-  ;; Spacemacs powerline org clock
-  (setq spaceline-org-clock-p t)
 
   ;; Speed commands
   (setq org-use-speed-commands t)
