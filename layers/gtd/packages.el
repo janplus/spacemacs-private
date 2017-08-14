@@ -312,7 +312,7 @@
                 ("b" "Book" entry (file+datetree org-agenda-diary-file)
                  "* %^{Book Title} :BOOKS: \n%[~/Dropbox/templates/booktemp.txt]%U\n" :clock-in t :clock-resume t)
                 ("d" "Daily Review" entry (file+datetree org-agenda-diary-file)
-                 "* %u Review :COACH: \n%U\n%[~/Dropbox/templates/daily_review.txt]" :clock-in t :clock-resume t)
+                 "* Daily Review %u :REVIEW: \n%U\n%[~/Dropbox/templates/daily_review.txt]" :clock-in t :clock-resume t)
                 ("w" "org-protocol" entry (file org-default-notes-file)
                  "* TODO Review %c\n%U\n" :immediate-finish t)
                 ("p" "Phone call" entry (file org-default-notes-file)
