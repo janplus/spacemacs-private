@@ -22,6 +22,7 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 ;; Ctrl-x
+(global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "C-x C-;") 'spacemacs/comment-or-uncomment-lines)
 
 ;; Meta

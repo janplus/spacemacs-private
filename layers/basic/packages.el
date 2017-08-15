@@ -13,10 +13,14 @@
 
 (defconst basic-packages
   '(
+    ace-window
     dired
     flyspell-correct
     chinese-fonts-setup
     ))
+
+(defun basic/pre-init-ace-window ()
+  (setq aw-dispatch-always t))
 
 (defun basic/pre-init-flyspell-correct()
   (setq-default ispell-program-name "aspell")
