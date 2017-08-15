@@ -398,8 +398,6 @@
                               ("@office" . ?o)
                               ("@home" . ?H)
                               (:endgroup)
-                              ("AMAZON" . ?a)
-                              ("HENGSHI" . ?i)
                               ("PHONE" . ?p)
                               ("MEETING" . ?m)
                               ("READ" . ?R)
